@@ -2,10 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
-from pathlib import Path
 
-# Manually set DATABASE_URL - no dotenv needed
-DATABASE_URL = "postgresql://cafe_admin:cafe123@localhost:5432/cafe_pos"
+# Read from environment variable, fall back to local for development
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://cafe_admin:cafe123@localhost:5432/cafe_pos")
 
 print(f"🔍 Database URL: {DATABASE_URL}")
 
