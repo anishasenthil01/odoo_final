@@ -30,7 +30,7 @@ function POSPage() {
     try {
       const url = categoryId 
         ? `${API}/api/products/?category_id=${categoryId}`
-        : '${API}/api/products/'
+        : `${API}/api/products/'
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -43,7 +43,7 @@ function POSPage() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('${API}/api/categories/', {
+      const response = await fetch(`${API}/api/categories/', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -55,7 +55,7 @@ function POSPage() {
 
   const fetchTables = async () => {
     try {
-      const response = await fetch('${API}/api/tables/', {
+      const response = await fetch(`${API}/api/tables/', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -67,7 +67,7 @@ function POSPage() {
 
   const fetchPaymentMethods = async () => {
     try {
-      const response = await fetch('${API}/api/payments/methods', {
+      const response = await fetch(`${API}/api/payments/methods', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -79,7 +79,7 @@ function POSPage() {
 
   const fetchActiveOrders = async () => {
     try {
-      const response = await fetch('${API}/api/orders/active', {
+      const response = await fetch(`${API}/api/orders/active', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -163,7 +163,7 @@ function POSPage() {
         coupon_code: couponCode || null
       }
 
-      const response = await fetch('${API}/api/orders/', {
+      const response = await fetch(`${API}/api/orders/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ function POSPage() {
   const processPayment = async (paymentMethodId) => {
     setLoading(true)
     try {
-      const response = await fetch('${API}/api/payments/', {
+      const response = await fetch(`${API}/api/payments/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

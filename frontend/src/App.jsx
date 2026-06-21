@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { API } from './config'   // ← ADD THIS LINE
-import React, { useState, useEffect } from 'react'
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // ==================== LOGIN COMPONENT ====================
 function Login() {
@@ -20,7 +18,7 @@ function Login() {
     const formData = new URLSearchParams()
     formData.append('username', username)
     formData.append('password', password)
-    const response = await fetch('${API}/api/auth/login', {
+    const response = await fetch(`${API}/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: formData.toString()
@@ -101,7 +99,7 @@ function Signup() {
     setLoading(true)
     setMessage('')
     try {
-      const response = await fetch('${API}/api/auth/signup', {
+      const response = await fetch(`${API}/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -244,7 +242,7 @@ const [customerEditForm, setCustomerEditForm] = useState({ name: '', email: '', 
   const checkSession = async () => {
     try {
       // Check for active session
-      const activeRes = await fetch('${API}/api/sessions/active', {
+      const activeRes = await fetch(`${API}/api/sessions/active', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (activeRes.ok) {
@@ -253,7 +251,7 @@ const [customerEditForm, setCustomerEditForm] = useState({ name: '', email: '', 
         setShowSessionPopup(false)
       } else {
         // No active session - check last closed session
-        const lastRes = await fetch('${API}/api/sessions/last-closed', {
+        const lastRes = await fetch(`${API}/api/sessions/last-closed', {
           headers: { 'Authorization': `Bearer ${token}` }
         })
         if (lastRes.ok) {
@@ -271,7 +269,7 @@ const [customerEditForm, setCustomerEditForm] = useState({ name: '', email: '', 
 
   const fetchTodaySummary = async () => {
     try {
-      const response = await fetch('${API}/api/sessions/today-summary', {
+      const response = await fetch(`${API}/api/sessions/today-summary', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (response.ok) {
@@ -283,7 +281,7 @@ const [customerEditForm, setCustomerEditForm] = useState({ name: '', email: '', 
   const handleStartSession = async () => {
     setSessionLoading(true)
     try {
-      const response = await fetch('${API}/api/sessions/start', {
+      const response = await fetch(`${API}/api/sessions/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ starting_cash: 0 })
@@ -342,7 +340,7 @@ const [customerEditForm, setCustomerEditForm] = useState({ name: '', email: '', 
   }, [])
   const fetchOrders = async () => {
   try {
-    let url = '${API}/api/orders/history?limit=200'
+    let url = `${API}/api/orders/history?limit=200'
     if (orderSearch) url += `&search=${encodeURIComponent(orderSearch)}`
     if (orderStatusFilter) url += `&status=${orderStatusFilter}`
     
@@ -382,7 +380,7 @@ const handleDeleteOrder = async (orderId) => {
   try {
     const url = categoryId 
       ? `${API}/api/products/?category_id=${categoryId}`
-      : '${API}/api/products/'
+      : `${API}/api/products/'
     const response = await fetch(url, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -392,7 +390,7 @@ const handleDeleteOrder = async (orderId) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('${API}/api/categories/?limit=100', {
+      const response = await fetch(`${API}/api/categories/?limit=100', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setCategories(await response.json())
@@ -401,7 +399,7 @@ const handleDeleteOrder = async (orderId) => {
 
   const fetchEmployees = async () => {
   try {
-    const response = await fetch('${API}/api/employees/', {
+    const response = await fetch(`${API}/api/employees/', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     const data = await response.json()
@@ -412,7 +410,7 @@ const handleDeleteOrder = async (orderId) => {
 
   const fetchTables = async () => {
     try {
-      const response = await fetch('${API}/api/tables/', {
+      const response = await fetch(`${API}/api/tables/', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setTables(await response.json())
@@ -421,7 +419,7 @@ const handleDeleteOrder = async (orderId) => {
 
  const fetchCustomers = async () => {
   try {
-    let url = '${API}/api/customers/?limit=200'
+    let url = `${API}/api/customers/?limit=200'
     if (customerSearch) url += `&search=${encodeURIComponent(customerSearch)}`
     
     const response = await fetch(url, {
@@ -434,7 +432,7 @@ const handleDeleteOrder = async (orderId) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch('${API}/api/reviews/?limit=100', {
+      const response = await fetch(`${API}/api/reviews/?limit=100', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setReviews(await response.json())
@@ -443,7 +441,7 @@ const handleDeleteOrder = async (orderId) => {
 
   const fetchReviewStats = async () => {
     try {
-      const response = await fetch('${API}/api/reviews/stats', {
+      const response = await fetch(`${API}/api/reviews/stats', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setReviewStats(await response.json())
@@ -503,7 +501,7 @@ const handleDeleteOrder = async (orderId) => {
   e.preventDefault()
   const url = editingProduct 
     ? `${API}/api/products/${editingProduct.id}`
-    : '${API}/api/products/'
+    : `${API}/api/products/'
   const method = editingProduct ? 'PUT' : 'POST'
   
   try {
@@ -562,7 +560,7 @@ const handleDeleteOrder = async (orderId) => {
     e.preventDefault()
     const url = editingCategory
       ? `${API}/api/categories/${editingCategory.id}`
-      : '${API}/api/categories/'
+      : `${API}/api/categories/'
     const method = editingCategory ? 'PUT' : 'POST'
     
     try {
@@ -602,7 +600,7 @@ const handleDeleteOrder = async (orderId) => {
     e.preventDefault()
     const url = editingTable
       ? `${API}/api/tables/${editingTable.id}`
-      : '${API}/api/tables/'
+      : `${API}/api/tables/'
     const method = editingTable ? 'PUT' : 'POST'
     
     try {
@@ -640,7 +638,7 @@ const handleDeleteOrder = async (orderId) => {
 const handleAddEmployee = async (e) => {
   e.preventDefault()
   try {
-    const response = await fetch('${API}/api/auth/signup', {
+    const response = await fetch(`${API}/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify(newEmployee)
@@ -1807,7 +1805,7 @@ const removeCoupon = () => {
 
   const fetchTables = async () => {
   try {
-    const response = await fetch('${API}/api/tables/', {
+    const response = await fetch(`${API}/api/tables/', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     const data = await response.json()
@@ -1819,7 +1817,7 @@ const removeCoupon = () => {
   try {
     const url = categoryId 
       ? `${API}/api/products/?category_id=${categoryId}`
-      : '${API}/api/products/'
+      : `${API}/api/products/'
     const response = await fetch(url, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -1830,7 +1828,7 @@ const removeCoupon = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('${API}/api/categories/', {
+      const response = await fetch(`${API}/api/categories/', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setCategories(await response.json())
@@ -1839,7 +1837,7 @@ const removeCoupon = () => {
 
   const fetchPaymentMethods = async () => {
     try {
-      const response = await fetch('${API}/api/payments/methods', {
+      const response = await fetch(`${API}/api/payments/methods', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setPaymentMethods(await response.json())
@@ -1934,7 +1932,7 @@ const removeCoupon = () => {
       notes: `Customer: ${customerName} | Email: ${customerEmail} | Phone: ${customerPhone || 'N/A'}`
     }
 
-    const orderResponse = await fetch('${API}/api/orders/', {
+    const orderResponse = await fetch(`${API}/api/orders/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify(orderData)
@@ -1942,7 +1940,7 @@ const removeCoupon = () => {
     const order = await orderResponse.json()
 
     if (orderResponse.ok) {
-      const paymentResponse = await fetch('${API}/api/payments/', {
+      const paymentResponse = await fetch(`${API}/api/payments/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({
@@ -1961,7 +1959,7 @@ const removeCoupon = () => {
         setAppliedCoupon(null)
 
         try {
-          await fetch('${API}/api/customers/', {
+          await fetch(`${API}/api/customers/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({
@@ -1993,7 +1991,7 @@ const removeCoupon = () => {
       return
     }
     try {
-      const response = await fetch('${API}/api/reviews/', {
+      const response = await fetch(`${API}/api/reviews/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({
@@ -2756,7 +2754,7 @@ function StaffDashboard() {
 
   const fetchTables = async () => {
     try {
-      const response = await fetch('${API}/api/tables/', {
+      const response = await fetch(`${API}/api/tables/', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       setTables(await response.json())
@@ -2774,7 +2772,7 @@ function StaffDashboard() {
   }
 const fetchCustomers = async () => {
   try {
-    let url = '${API}/api/customers/?limit=200'
+    let url = `${API}/api/customers/?limit=200'
     if (customerSearch) url += `&search=${encodeURIComponent(customerSearch)}`
     
     const response = await fetch(url, {
@@ -3037,7 +3035,7 @@ const [upiAmount, setUpiAmount] = useState('')
 
   const fetchProducts = async (categoryId = null) => {
   try {
-    const url = categoryId ? `${API}/api/products/?category_id=${categoryId}` : '${API}/api/products/'
+    const url = categoryId ? `${API}/api/products/?category_id=${categoryId}` : `${API}/api/products/'
     const response = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } })
     const data = await response.json()
     setProducts(data)  // ← Should show all products
@@ -3046,7 +3044,7 @@ const [upiAmount, setUpiAmount] = useState('')
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('${API}/api/categories/', { headers: { 'Authorization': `Bearer ${token}` } })
+      const response = await fetch(`${API}/api/categories/', { headers: { 'Authorization': `Bearer ${token}` } })
       const data = await response.json()
       setCategories(data)
     } catch (error) { console.error('Failed to fetch categories:', error) }
@@ -3054,7 +3052,7 @@ const [upiAmount, setUpiAmount] = useState('')
 
   const fetchTables = async () => {
   try {
-    const response = await fetch('${API}/api/tables/', { 
+    const response = await fetch(`${API}/api/tables/', { 
       headers: { 'Authorization': `Bearer ${token}` } 
     })
     const data = await response.json()
@@ -3063,7 +3061,7 @@ const [upiAmount, setUpiAmount] = useState('')
 }
   const fetchPaymentMethods = async () => {
     try {
-      const response = await fetch('${API}/api/payments/methods', { headers: { 'Authorization': `Bearer ${token}` } })
+      const response = await fetch(`${API}/api/payments/methods', { headers: { 'Authorization': `Bearer ${token}` } })
       const data = await response.json()
       setPaymentMethods(data)
     } catch (error) { console.error('Failed to fetch payment methods:', error) }
@@ -3071,7 +3069,7 @@ const [upiAmount, setUpiAmount] = useState('')
 
   const fetchActiveOrders = async () => {
     try {
-      const response = await fetch('${API}/api/orders/active', { headers: { 'Authorization': `Bearer ${token}` } })
+      const response = await fetch(`${API}/api/orders/active', { headers: { 'Authorization': `Bearer ${token}` } })
       const data = await response.json()
       setActiveOrders(data)
     } catch (error) { console.error('Failed to fetch active orders:', error) }
@@ -3126,7 +3124,7 @@ const [upiAmount, setUpiAmount] = useState('')
     setLoading(true)
     try {
       const orderData = { table_id: selectedTable, order_type: selectedTable ? 'dine_in' : 'takeaway', items: cart, coupon_code: couponCode || null }
-      const response = await fetch('${API}/api/orders/', {
+      const response = await fetch(`${API}/api/orders/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(orderData)
@@ -3147,7 +3145,7 @@ const [upiAmount, setUpiAmount] = useState('')
   const processPayment = async (paymentMethodId) => {
     setLoading(true)
     try {
-      const response = await fetch('${API}/api/payments/', {
+      const response = await fetch(`${API}/api/payments/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ order_id: currentOrder.id, payment_method_id: paymentMethodId, amount: currentOrder.total })
@@ -3411,7 +3409,7 @@ function KDSPage() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('${API}/api/orders/active', {
+      const response = await fetch(`${API}/api/orders/active', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -3617,7 +3615,7 @@ function CustomerDisplayPage() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('${API}/api/orders/active', {
+      const response = await fetch(`${API}/api/orders/active', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -3748,7 +3746,7 @@ function SelfOrderPage() {
     try {
       const url = categoryId 
         ? `${API}/api/products/?category_id=${categoryId}`
-        : '${API}/api/products/'
+        : `${API}/api/products/'
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -3761,7 +3759,7 @@ function SelfOrderPage() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('${API}/api/categories/', {
+      const response = await fetch(`${API}/api/categories/', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -3773,7 +3771,7 @@ function SelfOrderPage() {
 
   const fetchTables = async () => {
   try {
-    const response = await fetch('${API}/api/tables/', {
+    const response = await fetch(`${API}/api/tables/', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     const data = await response.json()
@@ -3836,7 +3834,7 @@ function SelfOrderPage() {
         notes: `Self-order from Table ${selectedTable}`
       }
 
-      const response = await fetch('${API}/api/orders/', {
+      const response = await fetch(`${API}/api/orders/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
