@@ -13,7 +13,7 @@ function KDS() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/orders/active', {
+      const response = await fetch('${API}/api/orders/active', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await response.json()
@@ -27,7 +27,7 @@ function KDS() {
 
   const updateStatus = async (orderId, status) => {
     try {
-      await fetch(`http://localhost:8000/api/orders/${orderId}/status?status=${status}`, {
+      await fetch(`${API}/api/orders/${orderId}/status?status=${status}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` }
       })

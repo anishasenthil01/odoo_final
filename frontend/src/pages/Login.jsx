@@ -19,7 +19,7 @@ function Login({ setUser }) {
       formDataObj.append('username', formData.username)
       formDataObj.append('password', formData.password)
 
-      const response = await fetch('http://localhost:8000/api/auth/login', {
+      const response = await fetch('${API}/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
