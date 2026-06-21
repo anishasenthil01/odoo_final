@@ -2,12 +2,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
-from pathlib import Path
+from dotenv import load_dotenv
 
-# Manually set DATABASE_URL - no dotenv needed
-DATABASE_URL = "postgresql://cafe_admin:cafe123@localhost:5432/cafe_pos"
+load_dotenv()
 
-print(f"🔍 Database URL: {DATABASE_URL}")
+# Use environment variable, fallback to SQLite for local dev
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./cafe_pos.db")
+
+print(f"🔍 Database URL: {DATABASE_URL[:50]}...")  # Only show first 50 chars for security
 
 engine = create_engine(DATABASE_URL)
 
